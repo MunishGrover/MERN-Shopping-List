@@ -4,13 +4,17 @@ import './App.css';
 import ShoppingList from './components/ShoppingList';
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css';
+import {Provider } from 'react-redux';
+import store from './store'
 class App extends Component {
   render() {
     return (
+        <Provider store={store}>
       <div className="App">
-<AppNavbar/>
-          <ShoppingList/>
+            <AppNavbar/>
+            <ShoppingList/>
       </div>
+        </Provider>
     );
   }
 }
