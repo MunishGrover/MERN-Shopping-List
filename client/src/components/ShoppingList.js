@@ -2,18 +2,20 @@ import React,{Component} from 'react';
 import {Container,ListGroup,ListGroupItem,Button} from 'reactstrap';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 import uuid from 'uuid';
+import {connect} from 'react-redux';
+import {getItems} from "../actions/itemAction";
+import PropTypes from 'prop-types';
 
 class ShoppingList extends Component{
-    state={
-        items:[
-            {id:uuid(),name:"eggs"},
-            {id:uuid(),name:"milk"},
-            {id:uuid(),name:"bread"},
-            {id:uuid(),name:"water"}
-        ]
+    componentDidMount(){
+        this.props.getItems();
     }
+
+
+
     render(){
-        const {items} =this.state;
+
+        const {items} =this.props.item;
         return(
             <Container>
                 <Button color="dark" style={{marginBottom:"2rem"}}
@@ -59,8 +61,15 @@ class ShoppingList extends Component{
 
 }
 
+ShoppingList.propTypes={
+    getItems:PropTypes.func.isRequired,
+    item:PropTypes.object.isRequired
+}
 
+const mapStateToProps=(state)=>({
+item:state.item
+});
 
-
-
-export default ShoppingList;
+export default connect(mapStateToProps,{getItems})(ShoppingList);
+//mapStateToProps it allows us to take items state and map it to a component ptoperty so that
+//we can use in Shopping List
